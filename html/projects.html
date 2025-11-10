@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScenarijPro</title>
+
+    <!-- Glavni stil -->
+    <link rel="stylesheet" href="projects.css">
+
+    <!-- Font Awesome za ikonice -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="logo">ScenarijPro</h2>
+
+            <nav class="nav">
+                <div class="nav-item active">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                    </svg>
+                    <span>Projekti</span>
+                </div>
+
+                <div class="nav-item">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+                        <path d="m19 9-5 5-4-4-3 3"/>
+                    </svg>
+                    <span>Statistika</span>
+                </div>
+
+                <div class="nav-item">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+               <span>Postavke</span>
+            </div>
+               
+            </nav>
+
+            <hr class="nav-divider">
+
+            <div class="user-profile">
+                <div class="initials-circle">U</div>
+                <div class="user-info">
+                    <div class="user-name">Alex Writer</div>
+                    <div class="pro-member">Pro member</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Glavni sadržaj -->
+        <main class="main-content">
+            <!-- Zaglavlje -->
+            <header class="header">
+                <h1>Svi scenariji</h1>
+                <div class="actions">
+                    <input type="search" placeholder="Pretraga" class="search-input">
+                    <button class="new-project-btn">+ Novi projekat</button>
+                </div>
+            </header>
+
+            <!-- Kartice projekata -->
+            <section class="project-grid">
+
+                <div class="project-card">
+                    <h2 class="title">THE LAST STARSHIP</h2>
+                    <p class="description">Sci-Fi Igrani Film</p>
+                    <div class="details">
+                        <div class="detail-item"><strong>Status:</strong> Druga verzija</div>
+                        <div class="detail-item"><strong>Broj stranica:</strong> 105</div>
+                        <div class="detail-item"><strong>Vrijeme posljednje izmjene:</strong> Prije 2 sata</div>
+                    </div>
+                </div>
+
+                <div class="project-card active-project">
+                    <div class="active-indicator">Aktivan</div>
+                    <h2 class="title">A TOWN CALLED QUIET</h2>
+                    <p class="description">Misterija TV Pilot (45 min)</p>
+                    <div class="details">
+                        <div class="detail-item"><strong>Status:</strong> Outline završen</div>
+                        <div class="detail-item"><strong>Broj stranica:</strong> 12</div>
+                        <div class="detail-item"><strong>Vrijeme posljednje izmjene:</strong> Jučer</div>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <h2 class="title">THE ARCHITECT'S SECRET</h2>
+                    <p class="description">Triler Kratki Film</p>
+                    <div class="details">
+                        <div class="detail-item"><strong>Status:</strong> Finalna verzija</div>
+                        <div class="detail-item"><strong>Broj stranica:</strong> 28</div>
+                        <div class="detail-item"><strong>Vrijeme posljednje izmjene:</strong> Prije 3 sedmice</div>
+                    </div>
+                </div>
+
+           <div class="new-project-card">
+    <div class="plus-icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+    </div>
+    <p>Kreiraj novi scenarij</p>
+</div>
+
+            </section>
+        </main>
+    </div>
+</body>
+</html>
