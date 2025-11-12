@@ -1,6 +1,6 @@
 :root {
     --color-sidebar-bg: #f8f9fb;    
-    --color-primary-blue: #5b3fff;
+    --color-primary-blue: #5B3FFF;  /*mora biti ova nijansa za dugme +Novi projekat, ista je i za ScenarijPro*/
     --color-active-bg: #e6e0ff;     
     --color-hover-dark-blue: #7c64f0;
     --color-dark-text: #333333;
@@ -9,7 +9,6 @@
     --project-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Osnovni reset i font */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -84,29 +83,20 @@ body {
     stroke: var(--color-primary-blue);
 }
 
-/* Hover efekat - tamnija nijansa plave*/
-/*.nav-item:not(.active):hover {
-    background-color: var(--color-hover-dark-blue);
-    color: var(--color-primary-blue);
-}
-
-.nav-item:not(.active):hover .nav-icon {
-    stroke: var(--color-hover-dark-blue);
-} */
  /* Hover efekat i za aktivnu stavku */
 .nav-item.active:hover {
     background-color: var(--color-hover-dark-blue);
     color: var(--color-dark-text);
 }
 .nav-item:hover {
-    background-color: var(--color-hover-dark-blue);
+    background-color: #6b71f0;
     color: var(--color-dark-text);
 }
 
 .nav-item.active:hover .nav-icon {
     stroke: var(--color-primary-blue);
 }
-/* Separator */
+/* Razmak */
 .nav-divider {
     border: 0;
     height: 1px;
@@ -215,6 +205,7 @@ body {
     box-shadow: var(--project-card-shadow);
 }
 
+
 /* Sadržaj kartica */
 .project-card .title {
     font-size: 1.2em;
@@ -245,10 +236,13 @@ body {
 
 /* Aktivni projekt */
 .active-project {
-   border: 1px solid #e0e0e0; /* obična siva ivica sa svih strana */
-    border-radius: 12px;        /* zaobljeni rubovi */
+    border: 1px solid var(--color-primary-blue); /* plavi obrub */
+    border-radius: 12px;
     position: relative;
-    padding-left: 20px;         
+    padding-left: 20px; 
+}
+.active-project:hover{
+    box-shadow: var(--project-card-shadow);
 }
 
 .active-project .active-indicator {
@@ -273,18 +267,20 @@ body {
     color: var(--color-light-gray-text);
     font-weight: 500;
     transition: border-color 0.3s;
+    background-color: #f4f3f3;
 }
 
 .new-project-card:hover {
-    border-color: var(--color-primary-blue);
-    box-shadow: none;
+   /* border-color: var(--color-primary-blue);  */ /*nije definisano u tekstu*/
+    box-shadow: var(--project-card-shadow);
+
 }
 
 .new-project-card .plus-icon-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #f2f2f2;
+    background-color: #e2e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
