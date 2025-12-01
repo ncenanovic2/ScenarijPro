@@ -38,10 +38,10 @@ button {
     padding: 10px 20px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky; /* Sticky - vidljivo i pri skrolanju stranice*/
+    position: sticky;
     top: 0;
     z-index: 1000;
-    flex-wrap: nowrap; /* Spriječava prelamanje na velikim ekranima */
+    flex-wrap: nowrap;
 }
 
 .header-left, .header-right {
@@ -60,7 +60,6 @@ button {
     font-size: 18px;
     font-weight: 600;
     color: #333;
-    
 }
 
 .header-center {
@@ -92,14 +91,8 @@ button {
     background-color: var(--color-save-button);
     color: white;
     font-size: 14px;
-    font-weight: 400px;
-    transition: background-color 0.2s ease; /* Postepena promjena */
-    
-}
-
-.save-button i {
-    margin-right: 5px;
-    text-align: center;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
 }
 
 .save-button:hover {
@@ -108,10 +101,10 @@ button {
 
 .content-container {
     display: flex;
-    height: calc(100vh - 60px); /* Oduzimanje visine headera za punu visinu */
+    height: calc(100vh - 60px);
 }
 
-    /*Sidebar*/
+/* Sidebar */
 .sidebar {
     width: var(--sidebar-width);
     flex-shrink: 0;
@@ -137,9 +130,7 @@ button {
     list-style: none;
     padding: 0 10px; 
     margin: 0; 
-
 }
-
 
 .scene-item {
     margin-bottom: 8px; 
@@ -149,20 +140,17 @@ button {
     cursor: pointer;
     border: 1px solid #eee; 
     background-color: #ffffff; 
-  
 }
 
 .scene-item:hover {
     background-color: #f8f8f8;
 }
 
-
 .scene-item.active {
     background-color: #E9EEFF; 
-    border-left: 5px solid #5B3FFF; /* Ljubičasta traka */
+    border-left: 5px solid #5B3FFF;
     padding-left: 10px; 
 }
-
 
 .scene-details {
     display: flex;
@@ -181,15 +169,13 @@ button {
     margin-top: 2px;
 }
 
-
 .scene-item.active .scene-number-title {
     color: #333; 
 }
 
 .scene-item.active .scene-pages {
-    color: #6c5ce7; /* Ljubičasta boja za brojač stranica */
+    color: #6c5ce7;
 }
-
 
 .rest-of-script, .outline-heading {
     padding: 5px 20px;
@@ -197,7 +183,6 @@ button {
     color: #888;
     margin-top: 15px;
 }
-
 
 .editor {
     flex-grow: 1;
@@ -229,9 +214,47 @@ button {
 }
 
 .action {
-    margin-top: var(--paragraph-spacing); /* Razmak između pasusa 1.5em */
+    margin-top: var(--paragraph-spacing);
     margin-bottom: 0;
     padding-right: 50px;
+}
+
+/* Stilovi za kontrolne elemente editora */
+.editor-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+
+.editor-controls button {
+    background-color: var(--color-tool-button-bg);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.editor-controls button:hover {
+    background-color: var(--color-tool-button-hover);
+}
+
+#poruke {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+    border-left: 4px solid #5B3FFF;
 }
 
 /* Responsivnost za ekrane < 750px */
@@ -250,7 +273,7 @@ button {
     .header-center {
         width: 100%;
         display: flex;
-        flex-wrap: wrap; /* Prelamanje dugmadi u dva reda */
+        flex-wrap: wrap;
         justify-content: center;
         margin-bottom: 10px;
     }
@@ -268,16 +291,15 @@ button {
         width: 100%; 
         display: block; 
         text-align: center; 
-        align-items: center; 
     }
 
     .content-container {
-        flex-direction: column; /* Sidebar ide iznad editora */
+        flex-direction: column;
         height: auto;
     }
 
     .sidebar {
-        width: 100%; /* Sidebar zauzima cijelu širinu */
+        width: 100%;
         border-right: none;
         border-bottom: 1px solid #ddd;
         padding-bottom: 10px;
