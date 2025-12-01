@@ -6,13 +6,15 @@
     <title>ScenarijPro</title>
     <link rel="stylesheet" href="writing.css">
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
+    
 </head>
 <body>
 
-    <header class="main-header">
+    <header class="main-header" role="banner">
         <div class="header-left">
-           <button class="back-button" aria-label="Nazad">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+           <button class="back-button" aria-label="Nazad na prethodnu stranicu">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
                     <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                 </svg>
             </button>
@@ -20,37 +22,37 @@
         </div>
 
         <div class="header-center" id="tool-buttons">
-            <button class="tool-button">SCENA</button>
-            <button class="tool-button">AKCIJA</button>
-            <button class="tool-button">LIK</button>
-            <button class="tool-button">DIJALOG</button>
+            <button class="tool-button" aria-label="Dodaj scenu">SCENA</button>
+            <button class="tool-button" aria-label="Dodaj akciju">AKCIJA</button>
+            <button class="tool-button" aria-label="Dodaj lika">LIK</button>
+            <button class="tool-button" aria-label="Dodaj dijalog">DIJALOG</button>
         </div>
 
         <div class="header-right">
-            <button class="save-button" id="save-button"></i> SPASI</button>
+            <button class="save-button" id="save-button" aria-label="Spremi promjene">SPASI</button>
         </div>
     </header>
 
-    <main class="content-container">
+    <main class="content-container" role="main">
 
-        <aside class="sidebar">
+        <aside class="sidebar" role="complementary" aria-label="Lista scena">
             <div class="sidebar-header">
                 <h2>Scene (3)</h2>
             </div>
-            <ul class="scene-list">
-                <li class="scene-item active">
+            <ul class="scene-list" role="list">
+                <li class="scene-item active" role="listitem">
                     <div class="scene-details">
                         <span class="scene-number-title">POČETNA SCENA</span>
                         <span class="scene-pages">5/8</span>
                     </div>
                 </li>
-                <li class="scene-item">
+                <li class="scene-item" role="listitem">
                     <div class="scene-details">
                         <span class="scene-number-title">PONUDIT ĆU MU NEŠTO</span>
                         <span class="scene-pages">3/8</span>
                     </div>
                 </li>
-                <li class="scene-item">
+                <li class="scene-item" role="listitem">
                     <div class="scene-details">
                         <span class="scene-number-title">SCENA U TRAMVAJU</span>
                         <span class="scene-pages">2/8</span>
@@ -59,30 +61,47 @@
             </ul>
         </aside>
 
-        <section class="editor">
-            <div class="script-page">
-                <p class="scene-heading">SCENA 1 – POČETNA SCENA (EKSTERIJER – DAN)</p>
-                <p class="action">
-                    Blagi povjetarac prolazi kroz polje suhih trava. Na horizontu, stara kuća.
-
-                </p>
-                <p class="action">
-                    Amar (30), gradonačelnik koji se vratio iz Sarajeva, silazi iz auta. Zastaje pred vratima, pogleda tablu “PRODAJE SE”. U rukama drži požutjeli papir – djedov testament.
-                </p>
-                <p class="action">
-                    Amar (tiho, sebi) Nisi mi rekao da će ovo biti tako teško, dedo...
-                </p>
-                <p class="action">
-               Vrata škripe dok ulazi. Kuća miriše na vlagu i pepeo.
-                </p>
-                <p class="action">
-                  Na stolu – stara fotografija: dedo u uniformi, i pored njega mladić kojeg Amar ne prepoznaje.
-                </p>
-                
+        <section class="editor" role="region" aria-label="Editor teksta">
+            <div class="control-bar">
+                <div class="control-title">Alati za formatiranje i analizu</div>
             </div>
+
+            <div class="editor-controls">
+                <div class="format-buttons">
+                    <button id="bold-btn" aria-label="Bold tekst">Bold</button>
+                    <button id="italic-btn" aria-label="Italic tekst">Italic</button>
+                    <button id="underline-btn" aria-label="Podvuci tekst">Underline</button>
+                </div>
+                
+                <div class="analysis-buttons">
+                    <button id="word-count-btn">Broj riječi</button>
+                    <button id="show-roles-btn">Prikaži uloge</button>
+                    <button id="wrong-roles-btn">Pogrešne uloge</button>
+                    <button id="lines-count-btn">Broj linija uloge</button>
+                    <button id="role-scenario-btn">Scenarij uloge</button>
+                    <button id="group-roles-btn">Grupisi uloge</button>
+                </div>
+            </div>
+
+            <div id="poruke" role="status" aria-live="polite">Ovdje će se prikazivati rezultati analize...</div>
+
+           <div class="script-page" contenteditable="true" id="text-editor" role="textbox" aria-label="Editor scenarija" aria-multiline="true">
+
+    
+ 
+    <br>
+    AMAR
+    <br>
+    
+ 
+
+    
+</div>
         </section>
 
     </main>
 
+    <script src="EditorTeksta.js"></script>
+    <script src="editor.js"></script>
 </body>
 </html>
