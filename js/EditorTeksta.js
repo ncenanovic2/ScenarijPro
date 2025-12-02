@@ -59,7 +59,7 @@ const wordRegex = /[\p{L}\d'-]+/gu;
     const parseDialogues = function() {
         const lines = getLines();
         const dialogues = [];
-        let currentScene = 'NEMA SCENE'; // Možda koristiti 'SCENA 1' pošto se pretpostavlja da dokument ima bar jednu scenu
+        let currentScene = 'NEMA SCENE'; 
 
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
