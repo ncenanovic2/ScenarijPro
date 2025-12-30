@@ -3,20 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
-// 1. STATIČKI FAJLOVI
-// Budući da je server.js u rootu, putanje su direktne
+
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/json', express.static(path.join(__dirname, 'json')));
 
-// Servira writing.html direktno iz /html foldera
-// URL će biti: http://localhost:3000/writing.html
 app.use(express.static(path.join(__dirname, 'html')));
 
-// 2. MIDDLEWARE
 app.use(express.json());
 
-// 3. PUTANJE DO PODATAKA
 const DATA_DIR = path.join(__dirname, 'data');
 const SCENARIOS_DIR = path.join(DATA_DIR, 'scenarios');
 const DELTAS_FILE = path.join(DATA_DIR, 'deltas.json');
