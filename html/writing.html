@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScenarijPro</title>
-    <link rel="stylesheet" href="writing.css">
+    <title>ScenarijPro - AMANET</title>
+    <link rel="stylesheet" href="/css/writing.css">
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    
-    
 </head>
 <body>
 
     <header class="main-header" role="banner">
         <div class="header-left">
-           <button class="back-button" aria-label="Nazad na prethodnu stranicu">
+            <button class="back-button" aria-label="Nazad na prethodnu stranicu">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
                     <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                 </svg>
@@ -63,7 +61,6 @@
 
         <section class="editor" role="region" aria-label="Editor teksta">
             
-
             <div class="editor-controls">
                 <div class="format-buttons">
                     <button id="bold-btn" aria-label="Bold tekst">Bold</button>
@@ -81,37 +78,62 @@
                 </div>
             </div>
 
-            <div id="poruke" role="status" aria-live="polite">Rezultati poziva funkcija</div>
+            <div id="poruke" class="status-box" role="status" aria-live="polite">
+                Rezultati poziva funkcija
+            </div>
 
-           <div class="script-page" contenteditable="true" id="text-editor" role="textbox" aria-label="Editor scenarija" aria-multiline="true">
+    <div id="porukeDiv" class="message-container" style="min-height: 20px; font-weight: bold; margin-bottom: 10px;"></div>
 
-    
- 
-     <br>INT. - DAY<br>
-            
-            SARA
-           <br> Ćao!
-            
-            <br>EMIN<br>
-            Zdravo.
-            
-           <br> SARA<br>
-           Kako si?
-            
-           <br> EXT. - DAY<br>
-            
-            <br>SARA<br>
-            Lijepo vrijeme.
-    
- 
+<div class="action-panel">
+    <div class="editor-controls inline-controls">
+        <button id="create-scenario-btn" class="tool-button">Kreiraj novi scenarij</button>
+        <input type="number" id="odabir-scenarija" class="no-spinner" min="1" placeholder="ID scenarija">
+        <button id="btn-load-scenario" class="tool-button">Učitaj scenario</button>
+    </div>
 
-    
+    <div class="editor-controls inline-controls" style="margin-top: 15px;">
+        <div style="width: 160px; display: inline-block;"></div> 
+        <input type="number" id="input-line-id" class="no-spinner" min="1" placeholder="ID linije">
+        <button id="btn-edit-line" class="tool-button">Uredi/zaključaj liniju</button>
+    </div>
 </div>
-        </section>
 
+    <div id="edit-section" class="edit-box" style="width: 100%; margin-top: 20px; border: 1px solid #ddd; padding: 15px; background: #f9f9f9; box-sizing: border-box;">
+        <h3>Uređivanje linije ID: <span id="current-editing-id">---</span></h3> 
+        <div class="textarea-container">
+            <textarea id="textarea-edit" rows="4" style="width: 100%; font-family: 'Courier Prime', monospace; padding: 10px; box-sizing: border-box;" placeholder="Unesite tekst linije..."></textarea>
+            <div class="save-action-wrapper" style="margin-top: 10px; text-align: right;">
+                <button id="btn-save-line" class="link-style-button">Spasi promjene</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="editor-controls inline-controls" style="margin-top: 20px;">
+    <div id="character-section" class="control-group">
+        <h4>Upravljanje likovima</h4>
+         <h6>Ukoliko želite zaključati nekog lika, unesite njegovo ime u polje "Staro ime"</h6>
+        <div class="input-row">
+            <input type="text" id="input-character-name" placeholder="Staro ime" class="tool-input">
+            <input type="text" id="input-new-name" placeholder="Novo ime" class="tool-input">
+        </div>
+        <div class="button-row" style="margin-top: 10px;">
+            <button id="btn-lock-character" class="tool-button">Zaključaj lika</button>
+            <button id="btn-update-character" class="tool-button">Ažuriraj ime</button>
+        </div>
+        </div>
+</div>
+
+<br>
+
+<div class="script-page" contenteditable="true" id="text-editor" role="textbox" aria-label="Editor scenarija" aria-multiline="true">
+    </div>
+
+        </section>
     </main>
 
-    <script src="EditorTeksta.js"></script>
-    <script src="editor.js"></script>
+    <script src="/js/EditorTeksta.js"></script>
+    <script src="/js/PoziviAjaxFetch.js"></script>
+    <script src="/js/editor.js"></script>
 </body>
 </html>

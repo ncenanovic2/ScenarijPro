@@ -1,0 +1,34 @@
+[
+  {
+    "scenarioId": 1,
+    "type": "line_update",
+    "lineId": 1,
+    "nextLineId": null,
+    "content": "tekstic",
+    "timestamp": 1767129489
+  },
+  {
+    "scenarioId": 1,
+    "type": "line_update",
+    "lineId": 1,
+    "nextLineId": null,
+    "content": "mali tekst",
+    "timestamp": 1767129855
+  },
+  {
+    "scenarioId": 1,
+    "type": "line_update",
+    "lineId": 1,
+    "nextLineId": null,
+    "content": "neki tekst",
+    "timestamp": 1767129897
+  },
+  {
+    "scenarioId": 1,
+    "type": "line_update",
+    "lineId": 1,
+    "nextLineId": null,
+    "content": "neki tekstic",
+    "timestamp": 1767134924
+  }
+]

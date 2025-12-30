@@ -1,37 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     const editorDiv = document.getElementById('text-editor');
-    const porukeDiv = document.getElementById('poruke');
+    const porukeDiv = document.getElementById('poruke');      
+    const pDivLock = document.getElementById('porukeDiv');    
     
-    if (!editorDiv) {
-        console.error('Nedostaje div element sa id="text-editor". Editor se ne može inicijalizovati.');
-        return;
-    }
-    
-    let editor;
-    try {
-        editor = EditorTeksta(editorDiv); 
-        console.log('Editor uspješno inicijaliziran');
-    } catch (error) {
-        const errorMessage =  error.message;
-        console.error(errorMessage);
-        if (porukeDiv) {
-            porukeDiv.textContent = errorMessage;
-        }
-        return; 
-    }
+   
+    window.SCENARIO_ID = null; 
+    let lastTimestamp = 0; 
+    let refreshInterval = null;
+    const REFRESH_RATE = 3000; 
 
   
+    let USER_ID = sessionStorage.getItem('userId');
+    if (!USER_ID) {
+        USER_ID = Math.floor(Math.random() * 1000);
+        sessionStorage.setItem('userId', USER_ID);
+    } else {
+        USER_ID = parseInt(USER_ID);
+    }
+
     const attachListener = (id, handler) => {
         const btn = document.getElementById(id);
         if (btn) {
             btn.addEventListener('click', handler);
         } else {
-            console.warn(`Dugme sa ID-jem '${id}' nedostaje u HTML-u. Funkcionalnost neće biti dostupna.`);
+            console.warn(`Dugme sa ID-jem '${id}' nedostaje u HTML-u.`);
         }
     };
 
-    // Funkcija za zamjenu \n sa <br>
     const formatLinesForHtml = (text) => text ? text.replace(/\n/g, '<br>') : '';
+
+    let editor;
+    try {
+        if (editorDiv) {
+            editor = EditorTeksta(editorDiv);
+            
+        }
+    } catch (e) {
+        console.error("Greška pri inicijalizaciji editora:", e.message);
+    }
+
 
 
     // --- Dugmad za formatiranje ---
@@ -149,4 +157,163 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-});
+
+    function ucitajScenario(isManual = false) {
+        if (!window.SCENARIO_ID) return;
+
+        PoziviAjaxFetch.getScenario(window.SCENARIO_ID, (status, data) => {
+            if (status === 200) {
+                editorDiv.innerHTML = "";
+                
+            
+                if (pDivLock) {
+                    pDivLock.innerText = isManual ? 
+                        ` Scenarij "${data.title}" uspješno učitan!` : 
+                        `Učitan scenarij: ${data.title}`;
+                    pDivLock.style.color = "green";
+                }
+
+                if (data.content && data.content.length > 0) {
+                    data.content.forEach(linija => {
+                        const p = document.createElement('p');
+                        p.setAttribute('data-line-id', linija.lineId);
+                        p.innerText = linija.text;
+                        editorDiv.appendChild(p);
+                    });
+                }
+                
+             
+                lastTimestamp = Math.floor(Date.now() / 1000);
+            } else {
+                if (pDivLock) {
+                    pDivLock.innerText = " Greška: " + (data.message || "Scenario nije pronađen.");
+                    pDivLock.style.color = "red";
+                }
+            }
+        });
+    }
+
+    function provjeriPromjene() {
+        if (!window.SCENARIO_ID) return;
+
+        PoziviAjaxFetch.getDeltas(window.SCENARIO_ID, lastTimestamp, (status, data) => {
+     
+            if (status === 200 && data.deltas && data.deltas.length > 0) {
+                console.log("Pronađene promjene na serveru, osvježavam...");
+                ucitajScenario(false);
+   
+                lastTimestamp = data.deltas[data.deltas.length - 1].timestamp;
+            }
+        });
+    }
+
+    function pokreniAutoRefresh() {
+        if (refreshInterval) clearInterval(refreshInterval);
+        refreshInterval = setInterval(provjeriPromjene, REFRESH_RATE);
+    }
+
+
+
+
+ 
+
+    attachListener('btn-load-scenario', () => {
+        const id = document.getElementById('odabir-scenarija').value;
+        if (id) {
+            window.SCENARIO_ID = id;
+            ucitajScenario(true);
+            pokreniAutoRefresh();
+        }
+    });
+
+    attachListener('create-scenario-btn', () => {
+        const naslov = prompt("Unesite naslov novog scenarija:");
+        if (naslov) {
+            PoziviAjaxFetch.postScenario(naslov, (status, data) => {
+                if (status === 200) {
+                    if (porukeDiv) porukeDiv.textContent = `Kreiran scenario ID: ${data.id}`;
+                    window.SCENARIO_ID = data.id;
+                    ucitajScenario(true);
+                    pokreniAutoRefresh();
+                }
+            });
+        }
+    });
+
+    attachListener('btn-edit-line', () => {
+        const lineId = document.getElementById('input-line-id').value;
+        if (!lineId || !window.SCENARIO_ID) return;
+
+        PoziviAjaxFetch.lockLine(window.SCENARIO_ID, lineId, USER_ID, (status, data) => {
+            if (status === 200) {
+                document.getElementById('current-editing-id').innerText = lineId;
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = "green";
+                }
+             
+                const paragraphs = editorDiv.querySelectorAll('p');
+                paragraphs.forEach(p => {
+                    if (p.getAttribute('data-line-id') == lineId) {
+                        document.getElementById('textarea-edit').value = p.innerText;
+                    }
+                });
+            } else {
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = "red";
+                }
+            }
+        });
+    });
+
+    attachListener('btn-save-line', () => {
+        const lineId = document.getElementById('current-editing-id').innerText;
+        const noviTekst = document.getElementById('textarea-edit').value;
+        if (lineId === "---" || !window.SCENARIO_ID) return;
+
+        PoziviAjaxFetch.updateLine(window.SCENARIO_ID, lineId, USER_ID, [noviTekst], (status, data) => {
+            if (status === 200) {
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = "green";
+                }
+                document.getElementById('current-editing-id').innerText = "---";
+                document.getElementById('textarea-edit').value = "";
+                ucitajScenario();
+            } else {
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = "red";
+                }
+            }
+        });
+    });
+
+    attachListener('btn-lock-character', () => {
+        const charName = document.getElementById('input-character-name').value.trim();
+        if (charName && window.SCENARIO_ID) {
+            PoziviAjaxFetch.lockCharacter(window.SCENARIO_ID, charName, USER_ID, (status, data) => {
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = (status === 200) ? "green" : "red";
+                }
+            });
+        }
+    });
+
+    attachListener('btn-update-character', () => {
+        const oldName = document.getElementById('input-character-name').value.trim();
+        const newName = document.getElementById('input-new-name').value.trim();
+        if (oldName && newName && window.SCENARIO_ID) {
+            PoziviAjaxFetch.updateCharacter(window.SCENARIO_ID, USER_ID, oldName, newName, (status, data) => {
+                if (pDivLock) {
+                    pDivLock.innerText = data.message;
+                    pDivLock.style.color = (status === 200) ? "green" : "red";
+                }
+                if (status === 200) ucitajScenario();
+            });
+        }
+    });
+
+}); 
