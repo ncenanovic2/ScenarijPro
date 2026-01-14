@@ -1,0 +1,11 @@
+{
+  "id": 2,
+  "title": "Scenarij2",
+  "content": [
+    {
+      "lineId": 1,
+      "text": "Ovo je neki scenarij. U scenariju ima linija texta.",
+      "nextLineId": null
+    }
+  ]
+}
