@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('wt26', 'root', 'password', {
     host: 'localhost',
     dialect: 'mysql',
-    logging: false // Isključi dosadne SQL logove u konzoli ako želiš
+    logging: false 
 });
 
 const Scenario = sequelize.define('Scenario', {
@@ -19,7 +19,7 @@ const Line = sequelize.define('Line', {
 Scenario.hasMany(Line, { foreignKey: 'scenarioId', onDelete: 'CASCADE' });
 Line.belongsTo(Scenario, { foreignKey: 'scenarioId' });
 
-// Dodaj i modele za Deltas i Checkpoints koje smo koristili u rutama
+
 const Delta = sequelize.define('Delta', {
     type: DataTypes.STRING,
     lineId: DataTypes.INTEGER,
