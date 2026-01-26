@@ -1,39 +1,96 @@
 // db.js
 const { Sequelize, DataTypes } = require('sequelize');
+
 const sequelize = new Sequelize('wt26', 'root', 'password', {
     host: 'localhost',
     dialect: 'mysql',
-    logging: false // Isključi dosadne SQL logove u konzoli ako želiš
+    logging: false 
 });
 
 const Scenario = sequelize.define('Scenario', {
-    title: { type: DataTypes.STRING, allowNull: false }
+    id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true 
+    },
+    title: { 
+        type: DataTypes.STRING, 
+        allowNull: false 
+    }
 });
 
 const Line = sequelize.define('Line', {
-    lineId: { type: DataTypes.INTEGER, allowNull: false },
-    text: { type: DataTypes.TEXT },
-    nextLineId: { type: DataTypes.INTEGER }
+    id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true 
+    },
+    lineId: { 
+        type: DataTypes.INTEGER, 
+        allowNull: false 
+    },
+    text: { 
+        type: DataTypes.TEXT 
+    },
+    nextLineId: { 
+        type: DataTypes.INTEGER,
+        allowNull: true 
+    }
 });
 
+// Relacija Scenario - Line
 Scenario.hasMany(Line, { foreignKey: 'scenarioId', onDelete: 'CASCADE' });
 Line.belongsTo(Scenario, { foreignKey: 'scenarioId' });
 
-// Dodaj i modele za Deltas i Checkpoints koje smo koristili u rutama
 const Delta = sequelize.define('Delta', {
-    type: DataTypes.STRING,
-    lineId: DataTypes.INTEGER,
-    nextLineId: DataTypes.INTEGER,
-    content: DataTypes.TEXT,
-    oldName: DataTypes.STRING,
-    newName: DataTypes.STRING,
-    timestamp: DataTypes.INTEGER
+    id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true 
+    },
+    type: { 
+        type: DataTypes.STRING, 
+        allowNull: false 
+    },
+    lineId: { 
+        type: DataTypes.INTEGER 
+    },
+    nextLineId: { 
+        type: DataTypes.INTEGER 
+    },
+    content: { 
+        type: DataTypes.TEXT 
+    },
+    oldName: { 
+        type: DataTypes.STRING 
+    },
+    newName: { 
+        type: DataTypes.STRING 
+    },
+    timestamp: { 
+        type: DataTypes.INTEGER, 
+        allowNull: false 
+    }
 });
-Scenario.hasMany(Delta, { foreignKey: 'scenarioId' });
+
+// Relacija Scenario - Delta
+Scenario.hasMany(Delta, { foreignKey: 'scenarioId', onDelete: 'CASCADE' });
+Delta.belongsTo(Scenario, { foreignKey: 'scenarioId' });
 
 const Checkpoint = sequelize.define('Checkpoint', {
-    timestamp: DataTypes.INTEGER
+    id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true 
+    },
+    timestamp: { 
+        type: DataTypes.INTEGER, 
+        allowNull: false 
+    }
 });
-Scenario.hasMany(Checkpoint, { foreignKey: 'scenarioId' });
+
+// Relacija Scenario - Checkpoint
+Scenario.hasMany(Checkpoint, { foreignKey: 'scenarioId', onDelete: 'CASCADE' });
+Checkpoint.belongsTo(Scenario, { foreignKey: 'scenarioId' });
 
 module.exports = { sequelize, Scenario, Line, Delta, Checkpoint };
